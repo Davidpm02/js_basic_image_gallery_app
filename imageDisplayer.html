@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de imágenes</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Visor de Imágenes</title>
     <style>
         .image-slider {
             position: fixed;
@@ -30,7 +29,7 @@
 
         .slider-image {
             max-width: 90%;
-            max-height: 90vh;
+            max-height: 90%;
             object-fit: contain;
         }
 
@@ -91,23 +90,6 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="title">Galería de imágenes</h1>
-    </header>
-
-    <!-- Formulario para subir imágenes -->
-    <form id="upload-form" class="upload-form">
-        <input type="file" id="file-input" accept="image/*" class="file-input">
-        <button type="submit" class="upload-button">Subir imagen</button>
-    </form>
-
-    <hr class="separator">
-
-    <main>
-        <div id="gallery"></div>
-    </main>
-
-    <!-- Slider de imágenes -->
     <div class="image-slider" id="imageSlider">
         <button class="close-button" id="closeSlider">&times;</button>
         <div class="slider-content">
@@ -118,6 +100,69 @@
         <div class="image-counter" id="imageCounter">1 / 1</div>
     </div>
 
-    <script src="js/image_loader.js"></script>
+    <script>
+        let currentImageIndex = 0;
+        let images = [];
+
+        // Función para abrir el slider
+        function openSlider(imageUrl, index) {
+            const slider = document.getElementById('imageSlider');
+            const sliderImage = document.getElementById('sliderImage');
+            currentImageIndex = index;
+            sliderImage.src = imageUrl;
+            slider.style.display = 'flex';
+            updateImageCounter();
+        }
+
+        // Función para cerrar el slider
+        function closeSlider() {
+            const slider = document.getElementById('imageSlider');
+            slider.style.display = 'none';
+        }
+
+        // Función para navegar a la siguiente imagen
+        function nextImage() {
+            if (currentImageIndex < images.length - 1) {
+                currentImageIndex++;
+            } else {
+                currentImageIndex = 0;
+            }
+            document.getElementById('sliderImage').src = images[currentImageIndex];
+            updateImageCounter();
+        }
+
+        // Función para navegar a la imagen anterior
+        function prevImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else {
+                currentImageIndex = images.length - 1;
+            }
+            document.getElementById('sliderImage').src = images[currentImageIndex];
+            updateImageCounter();
+        }
+
+        // Función para actualizar el contador de imágenes
+        function updateImageCounter() {
+            const counter = document.getElementById('imageCounter');
+            counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        // Event Listeners
+        document.getElementById('closeSlider').addEventListener('click', closeSlider);
+        document.getElementById('nextImage').addEventListener('click', nextImage);
+        document.getElementById('prevImage').addEventListener('click', prevImage);
+
+        // Cerrar con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSlider();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+    </script>
 </body>
-</html>
+</html> 
