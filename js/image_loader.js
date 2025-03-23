@@ -5,6 +5,7 @@ const uploadForm = document.getElementById('upload-form');
 const imageSlider = document.getElementById('imageSlider');
 const sliderImage = document.getElementById('sliderImage');
 const imageCounter = document.getElementById('imageCounter');
+const noImagesMessage = document.getElementById('no-images-message');
 
 // Variables globales para el slider
 let currentImageIndex = 0;
@@ -51,6 +52,12 @@ function loadImages() {
         imageElement.appendChild(deleteButton);
         gallery.appendChild(imageElement);
     });
+
+    if (images.length === 0) {
+        showNoImagesMessage();
+    } else {
+        hideNoImagesMessage();
+    }
 }
 
 // Función para eliminar una imagen
@@ -123,6 +130,10 @@ function uploadImage() {
         
         // Limpiamos el input de archivo
         fileInput.value = '';
+
+        if (images.length > 0) {
+            hideNoImagesMessage();
+        }
     }
     
     reader.readAsDataURL(file);
@@ -192,4 +203,16 @@ document.addEventListener('keydown', (e) => {
 
 // Cargamos las imágenes al cargar la página
 window.addEventListener('load', loadImages);
+
+// Función para mostrar el mensaje de no imágenes
+function showNoImagesMessage() {
+    noImagesMessage.style.display = 'block';
+}
+
+// Función para ocultar el mensaje de no imágenes
+function hideNoImagesMessage() {
+    noImagesMessage.style.display = 'none';
+}
+
+
 
