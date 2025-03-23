@@ -87,6 +87,21 @@
             padding: 5px 15px;
             border-radius: 15px;
         }
+        .delete-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        .delete-button:hover {
+            background-color: darkred;
+        }
+        
     </style>
 </head>
 <body>
@@ -98,6 +113,7 @@
             <button class="slider-button next-button" id="nextImage">&#10095;</button>
         </div>
         <div class="image-counter" id="imageCounter">1 / 1</div>
+        <button class="delete-button" id="deleteImage">Eliminar</button>
     </div>
 
     <script>
