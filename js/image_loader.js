@@ -98,6 +98,7 @@ function uploadImage() {
     reader.onload = function(event) {
         const imageUrl = event.target.result;
         images = JSON.parse(localStorage.getItem('images')) || [];
+        const newIndex = images.length; // Guardamos el índice antes de agregar la imagen
         images.push(imageUrl);
         localStorage.setItem('images', JSON.stringify(images));
         
@@ -107,7 +108,7 @@ function uploadImage() {
         
         const img = document.createElement('img');
         img.src = imageUrl;
-        img.alt = `Imagen ${images.length}`;
+        img.alt = `Imagen ${newIndex + 1}`;
         
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-icon');
@@ -116,12 +117,12 @@ function uploadImage() {
         
         deleteButton.addEventListener('click', (e) => {
             e.stopPropagation();
-            deleteImage(images.length - 1);
+            deleteImage(newIndex);
         });
         
         // Agregamos el evento click para la nueva imagen
         img.addEventListener('click', () => {
-            openSlider(images.length - 1);
+            openSlider(newIndex);
         });
         
         imageElement.appendChild(img);
@@ -141,10 +142,12 @@ function uploadImage() {
 
 // Funciones del slider
 function openSlider(index) {
-    currentImageIndex = index;
-    sliderImage.src = images[currentImageIndex];
-    imageSlider.style.display = 'flex';
-    updateImageCounter();
+    if (index >= 0 && index < images.length) {
+        currentImageIndex = index;
+        sliderImage.src = images[currentImageIndex];
+        imageSlider.style.display = 'flex';
+        updateImageCounter();
+    }
 }
 
 function closeSlider() {
@@ -152,27 +155,33 @@ function closeSlider() {
 }
 
 function nextImage() {
-    if (currentImageIndex < images.length - 1) {
-        currentImageIndex++;
-    } else {
-        currentImageIndex = 0;
+    if (images.length > 0) {
+        if (currentImageIndex < images.length - 1) {
+            currentImageIndex++;
+        } else {
+            currentImageIndex = 0;
+        }
+        sliderImage.src = images[currentImageIndex];
+        updateImageCounter();
     }
-    sliderImage.src = images[currentImageIndex];
-    updateImageCounter();
 }
 
 function prevImage() {
-    if (currentImageIndex > 0) {
-        currentImageIndex--;
-    } else {
-        currentImageIndex = images.length - 1;
+    if (images.length > 0) {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+        } else {
+            currentImageIndex = images.length - 1;
+        }
+        sliderImage.src = images[currentImageIndex];
+        updateImageCounter();
     }
-    sliderImage.src = images[currentImageIndex];
-    updateImageCounter();
 }
 
 function updateImageCounter() {
-    imageCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+    if (images.length > 0) {
+        imageCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+    }
 }
 
 // Event Listeners
