@@ -62,7 +62,7 @@ header {
 .separator {
     border: 1px solid gray;
     max-width: 80%;
-    margin: 100px auto;
+    margin: 100px auto 40px auto;
 }
 
 #gallery {
