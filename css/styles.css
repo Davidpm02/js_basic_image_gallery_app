@@ -4,6 +4,8 @@ header {
     padding: 10px;
     max-width: 80%;
     margin: auto;
+    margin-top: 30px;
+    border-radius: 10px;
 }
 
 .title {
