@@ -21,6 +21,8 @@ Una aplicación web interactiva para gestionar y visualizar imágenes, desarroll
   - Adaptación automática a diferentes dispositivos.
   - Diseño fluido y moderno.
   - Interfaz intuitiva y fácil de usar.
+ 
+https://github.com/user-attachments/assets/e62abd0e-f8a7-49b6-89de-a035730f6530
 
 ## 🎯 Funcionalidades Principales
 
